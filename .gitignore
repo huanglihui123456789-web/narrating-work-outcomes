@@ -1,0 +1,6 @@
+# Python 缓存
+__pycache__/
+*.pyc
+
+# --redact 生成物（派生文件，不入库；由 examples/draft-pii.md 现跑现生成）
+*-脱敏.md

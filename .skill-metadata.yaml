@@ -1,0 +1,188 @@
+examples:
+  - id: weekly-report-from-notes
+    title:
+      zh: 把零散记录写成周报
+      en: Turn Raw Notes into a Weekly Report
+    description:
+      zh: 适合只有一堆流水记录、要交给直属领导看的场景，控制在 300-500 字
+      en: For scattered work logs that must become a 300-500 character weekly report for your direct manager
+    prompt:
+      zh: |-
+        帮我把这堆零散记录整理成周报，读者是我的直属上级。
+
+        原始记录：
+        {{粘贴本周的工作流水、聊天记录或待办导出}}
+
+        要求：先跑一遍 gaps 体检，把我确实没交代的结果和数字一次性列成问题问我，不要自己编数据。控制在 500 字以内。
+      en: |-
+        Please turn my raw notes into a weekly report for my direct manager.
+
+        Raw notes:
+        {{paste this week's work log, chat records or todo export}}
+
+        Run the gaps audit first, then ask me in one batch about every result or number I failed to state. Do not invent data. Keep it under 500 characters.
+
+  - id: monthly-report-with-target
+    title:
+      zh: 对齐目标的月报
+      en: Monthly Report Against Targets
+    description:
+      zh: 月报必须回看目标达成度并带同比/环比口径，适合可能被转发的场合
+      en: Forces target attainment plus period-over-period calibers, for reports that get forwarded upward
+    prompt:
+      zh: |-
+        写一份 8 月月报，可能被上级转发，需要回看月初定的目标。
+
+        月初目标：{{列出月初的 KPI / OKR 或承诺事项}}
+        本月实际记录：{{粘贴素材}}
+
+        请按"核心结论 - 目标达成度 - 分项结果 - 问题与根因 - 下月计划"来写，每个百分比都要写清分子分母和时间窗，缺口径的地方标出来问我。
+      en: |-
+        Write an August monthly report that may be forwarded upward and must revisit the targets set at the start of the month.
+
+        Targets: {{list your KPIs / OKRs or commitments}}
+        This month's raw notes: {{paste material}}
+
+        Use the structure "key conclusions - target attainment - detailed results - issues and root causes - next month plan". Every percentage needs its numerator, denominator and time window; flag each missing caliber and ask me.
+
+  - id: quarterly-review-star
+    title:
+      zh: 季度述职讲稿
+      en: Quarterly Review Script
+    description:
+      zh: 面向隔级领导和评委，用 STAR-L 组织 2-3 个代表战役，含真实不足项
+      en: Organizes 2-3 flagship cases with STAR-L for skip-level reviewers, including an honest gap section
+    prompt:
+      zh: |-
+        帮我准备季度述职，听众是隔级领导和 HR，讲 10 分钟左右。
+
+        这个季度我做的事情：{{粘贴素材或要点}}
+        我认为最有价值的 2-3 件事：{{可选，不填则由你帮我判断}}
+
+        不要写成放大版周报。每场战役用 STAR-L，结果必须带数字或可核对状态，Learning 要写成可复用的判断规则。最后给我一条真实的不足，不要"过于追求完美"那种。
+      en: |-
+        Help me prepare a quarterly review for skip-level leadership and HR, about 10 minutes spoken.
+
+        What I did this quarter: {{paste notes or bullet points}}
+        The 2-3 things I think mattered most: {{optional, otherwise help me decide}}
+
+        Do not write an inflated weekly report. Use STAR-L per case, every Result needs a number or verifiable state, and each Learning must be a reusable decision rule. Close with one genuine gap, not a humblebrag.
+
+  - id: performance-self-review
+    title:
+      zh: 绩效自评逐条撰写
+      en: Performance Self-Assessment
+    description:
+      zh: 按考核维度逐条写"目标值-实际值-达成率-关键动作-补救"，供校准会使用
+      en: Fills each review dimension with target, actual, attainment, key action and remedy for calibration meetings
+    prompt:
+      zh: |-
+        写绩效自评，考核维度如下，每个维度 100 字左右。
+
+        考核维度：{{如：目标达成 / 协作 / 创新 / 合规}}
+        我的实际情况：{{粘贴素材}}
+        我的自评等级：{{如：超出预期}}
+
+        请严格按"目标值 - 实际值 - 达成率 - 关键动作 - 未达成部分的补救"来写，检查自评等级和证据强度是否匹配，不匹配直接告诉我。未达成的项不要藏。
+      en: |-
+        Write my performance self-assessment against these review dimensions, about 100 characters each.
+
+        Dimensions: {{e.g. goal attainment / collaboration / innovation / compliance}}
+        My actual situation: {{paste notes}}
+        My proposed rating: {{e.g. exceeds expectations}}
+
+        Follow "target - actual - attainment rate - key action - remedy for gaps". Check whether my proposed rating matches the strength of the evidence and tell me plainly if it does not. Do not omit the items that missed.
+
+  - id: promise-reconciliation
+    title:
+      zh: 上期承诺对账
+      en: Reconcile Last Period's Commitments
+    description:
+      zh: 把上一期和本期放在一起，查出悄悄消失的承诺和连续顺延没做成的事
+      en: Compares two periods to surface dropped commitments and items that keep slipping
+    prompt:
+      zh: |-
+        帮我核对上期承诺有没有落空。
+
+        上一期正文：{{粘贴或给出文件路径}}
+        本期正文：{{粘贴或给出文件路径}}
+
+        请跑 promise_reconcile.py 做五档判定（已兑现 / 有交代未完成 / 存疑 / 未提及 / 连续顺延），然后按结果改本期正文：未提及的补一句交代或写明暂缓原因，有交代未完成和连续顺延的不是给死线就是砍掉。改完再跑一次 final 体检，要求未决问题 0 条。
+      en: |-
+        Check whether my commitments from last period fell through.
+
+        Previous report: {{paste or give a file path}}
+        This report: {{paste or give a file path}}
+
+        Run promise_reconcile.py for the five verdicts (settled / deferred / doubtful / missing / rolled over), then revise this report accordingly: add a sentence for anything dropped, and either set a deadline or cut anything that keeps slipping. Re-run the final audit afterwards until there are zero open issues.
+
+  - id: privacy-redact
+    title:
+      zh: 交付前脱敏
+      en: Redact Before Sending
+    description:
+      zh: 稿子里有同事真名、学号、手机号或薪资时，出一份可安全转发的副本
+      en: Produce a safely forwardable copy when the draft carries names, IDs or pay figures
+    prompt:
+      zh: |-
+        这份稿子要发给领导，先帮我查隐私再出脱敏副本。
+
+        稿件：{{文件路径}}
+        文体：{{周报 / 月报 / 述职 / 绩效自评}}
+
+        请跑 report_audit.py --mode final 看隐私阻断项有哪些，再跑 --redact 生成副本（不要改原文件）。然后告诉我哪些地方应该改写成角色化说法——比如"张主任"改成"某学院联络人"，而不是只靠掩码。
+      en: |-
+        This draft is going to my manager. Check privacy exposure first, then make a redacted copy.
+
+        Draft: {{file path}}
+        Genre: {{weekly / monthly / review / self-review}}
+
+        Run report_audit.py --mode final to list blocking privacy items, then run --redact to create a copy without touching the original. Also tell me which spots should be reworded into roles (e.g. "a liaison from one school") rather than merely masked.
+
+  - id: nothing-to-report
+    title:
+      zh: 想不起自己干了什么
+      en: I Have Nothing To Report
+    description:
+      zh: 冷启动场景：一周很碎、觉得没成果，靠追问把做过的事挖出来
+      en: Cold start for a week that feels empty — questions dig the work back out
+    prompt:
+      zh: |-
+        这周感觉什么都没干，但我确实上了班。帮我把它挖出来。
+
+        时间范围：{{如 8/24–8/30}}
+        我能想起来的碎片：{{想到什么写什么，三五行即可，没有也行}}
+
+        别替我编。请按这些方向一个个问我：这周有没有替谁挡掉一件事、有没有哪件事因为你的意见改了方向、有没有重复第三次以上的手工活、有没有别人来问过你的东西。问完把我答的内容整理成结果句，实在没有数就标 {{待补}}。
+      en: |-
+        This week feels empty, but I did work. Help me dig it out.
+
+        Period: {{e.g. 8/24-8/30}}
+        Fragments I can recall: {{anything, a few lines, or none at all}}
+
+        Do not invent anything. Interview me one question at a time: did you block something for someone, did anything change direction because of your input, what manual task did you do for the third time, did people come to you for answers? Then turn my answers into outcome sentences, marking {{TBD}} where a number is missing.
+
+  - id: fix-laundry-list
+    title:
+      zh: 诊断并改写流水账
+      en: Diagnose and Rewrite a Laundry List
+    description:
+      zh: 已有初稿但读起来像流水账，先跑 final 体检再逐条改写
+      en: Runs the final audit on an existing draft, then rewrites each flagged sentence
+    prompt:
+      zh: |-
+        这份汇报我自己读着像流水账，帮我诊断并改写。
+
+        初稿：{{粘贴初稿，或给出文件路径}}
+        目标读者：{{谁看}}
+        篇幅上限：{{如 600 字}}
+
+        先跑 report_audit.py 的 final 模式给我评分和逐条问题，然后按"动作-对象-结果-影响"改写每一句。我没有数据的地方用 {{待补}} 占位并单独列出，不要替我编数字。
+      en: |-
+        This report reads like a laundry list to me. Diagnose it and rewrite it.
+
+        Draft: {{paste the draft or give a file path}}
+        Audience: {{who reads it}}
+        Length limit: {{e.g. 600 characters}}
+
+        Run report_audit.py in final mode first and give me the score plus itemized issues, then rewrite every sentence as action - object - result - impact. Use {{TBD}} placeholders where I have no data and list them separately; do not invent numbers.
