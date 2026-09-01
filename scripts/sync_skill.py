@@ -72,7 +72,11 @@ def report(only_src, only_dst, diff, src: Path, dst: Path) -> bool:
     return False
 
 
+import wordpack
+
+
 def main() -> int:
+    wordpack.use_utf8_console()
     ap = argparse.ArgumentParser(description="技能同步与漂移检测")
     ap.add_argument("--to", default="", help="目标目录，默认 ~/.qwenworkcn/skills/<技能名>")
     ap.add_argument("--check", action="store_true", help="只比对不写入")

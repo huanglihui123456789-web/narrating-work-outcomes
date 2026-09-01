@@ -296,6 +296,7 @@ def render(r: dict) -> str:
 
 
 def main() -> int:
+    wordpack.use_utf8_console()
     ap = argparse.ArgumentParser(description="上期承诺闭环核对")
     ap.add_argument("--prev", required=True, help="上一期正文（含计划小节）")
     ap.add_argument("--current", required=True, help="本期正文")

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """结构校验器：把 create-skill 的 Phase 4 清单变成可执行检查。"""
 import re, os, sys, json, subprocess, tempfile
+import wordpack
+
+wordpack.use_utf8_console()   # Windows 控制台默认 GBK，打印中文断言会抛 UnicodeEncodeError
 ok = True
 BACKSLASH = chr(92)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -207,6 +210,18 @@ else:
 
 st = run([A, os.path.join(ROOT, 'examples/draft-deliverable.md'), '--mode', 'final', '--style', 'review'])
 chk('文体缺件' in st.stdout, "--style review 能抓到述职缺「不足与改进」")
+
+# ---------- 控制台编码兜底 ----------
+# 教训：sync_skill 在 GBK 控制台打印 ✓/✗ 直接抛 UnicodeEncodeError，
+# 而此前每次测试都先 export PYTHONIOENCODING=utf-8，把问题一直遮着。
+for name in sorted(os.listdir(os.path.join(ROOT, 'scripts'))):
+    if not name.endswith('.py') or name == 'wordpack.py':
+        continue
+    src = open(os.path.join(ROOT, 'scripts', name), encoding='utf8').read()
+    if 'argparse' not in src:
+        continue          # 非入口脚本
+    chk('use_utf8_console' in src or 'stdout.buffer' in src,
+        f"{name} 自带输出编码兜底（不依赖调用方设 PYTHONIOENCODING）")
 
 print("\n结果:", "全部通过" if ok else "存在失败项")
 sys.exit(0 if ok else 1)

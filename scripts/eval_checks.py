@@ -181,7 +181,11 @@ def run_case(mode: str, text: str, style: str = "") -> list[str]:
     return [i["type"] for i in issues if i["type"] not in DOC_LEVEL]
 
 
+import wordpack
+
+
 def main() -> int:
+    wordpack.use_utf8_console()
     ap = argparse.ArgumentParser(description="检查项双向评测")
     ap.add_argument("--case", default="", help="只跑编号含该关键字的样本")
     args = ap.parse_args()

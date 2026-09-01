@@ -787,6 +787,7 @@ def _append_pii_notes(lines: list[str], report: dict) -> str:
 
 
 def main() -> int:
+    wordpack.use_utf8_console()
     ap = argparse.ArgumentParser(description="职场成果稿体检")
     ap.add_argument("file", help="待检查的 .md/.txt 文件路径")
     ap.add_argument("--mode", choices=["gaps", "final"], default="gaps",

@@ -40,6 +40,17 @@ LIST_KEYS = (
 STRUCTURED_KEYS = ("DOC_TYPE_FAMILIES",)
 
 
+def use_utf8_console() -> None:
+    """把 stdout/stderr 强制成 UTF-8。
+
+    Windows 控制台默认 GBK，脚本里的 ✓ ✗ 「」会直接抛 UnicodeEncodeError。
+    调用方不会替你设 PYTHONIOENCODING，所以每个入口脚本自己兜住。
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
+
 class WordPackError(RuntimeError):
     pass
 

@@ -194,7 +194,11 @@ def evaluate(sweep: bool) -> int:
     return 0
 
 
+import wordpack
+
+
 def main() -> int:
+    wordpack.use_utf8_console()
     ap = argparse.ArgumentParser(description="对账器阈值评测")
     ap.add_argument("--sweep", action="store_true", help="打印每条样本的领先幅度明细")
     args = ap.parse_args()
