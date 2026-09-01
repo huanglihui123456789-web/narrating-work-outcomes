@@ -1,0 +1,10 @@
+# 把换行钉成 LF。
+# 原因：sync_skill.py 用逐字节比对来检测开发副本与安装副本的漂移，
+# Windows 上 git 若把文本转成 CRLF，checkout 之后会持续误报"存在漂移"。
+* text=auto eol=lf
+
+# 数据与脚本一律 LF；文档同此处理，避免 diff 被换行噪声污染
+*.py    text eol=lf
+*.json  text eol=lf
+*.yaml  text eol=lf
+*.md    text eol=lf
