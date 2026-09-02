@@ -73,14 +73,53 @@ python scripts/eval_thresholds.py    # 对账阈值的正负样本可分性
 
 ## 安装
 
-复制到 QwenWork 技能目录即可被加载：
+QwenWork 加载路径（把整个目录放进去即可）：
 
 ```
-Windows  %USERPROFILE%\.qwenworkcn\skills\narrating-work-outcomes\
+Windows      %USERPROFILE%\.qwenworkcn\skills\narrating-work-outcomes\
 macOS/Linux  ~/.qwenworkcn/skills/narrating-work-outcomes/
 ```
 
-要求 Python 3.10+，不联网。核心功能零依赖；`validate_skill.py` 的 metadata 检查段在有 PyYAML 时启用，没有则跳过该项（其余检查不受影响）。从仓库根目录或任意工作目录运行均可。
+要求 Python 3.10+，运行不联网。核心功能零第三方依赖；只有 `validate_skill.py` 的 metadata 检查段需要 PyYAML，没装会自动跳过该项（其余 130+ 项照常），从仓库根目录或任意工作目录运行均可。
+
+## 打不开仓库 / 克隆失败
+
+国内网络访问 GitHub 经常是**间歇性**的——同一台机器十几分钟内三条通道表现都不一样（实测：`raw.githubusercontent.com` 完全不通，`github.com` 反复连接重置，而 ZIP 下载和 API 正常）。所以先别怀疑代码。
+
+**最省事：不用 git。** 装这个技能并不需要克隆。浏览器打开
+
+```
+https://github.com/huanglihui123456789-web/narrating-work-outcomes/archive/refs/heads/main.zip
+```
+
+下载解压，把里面的 `narrating-work-outcomes-main` 改名成 `narrating-work-outcomes`，放进上面的技能目录即可。这条路只需要能打开网页。
+
+**要持续更新再配 SSH over 443**（GitHub 官方逃生通道，绕开常被堵的 22 端口）。在 `~/.ssh/config` 里加：
+
+```
+Host github.com
+    HostName ssh.github.com
+    Port 443
+    User git
+```
+
+之后 `git clone git@github.com:huanglihui123456789-web/narrating-work-outcomes.git` 走的就是 443。
+
+**先试一次手机热点。** 很多"用不了"其实只是当前网络对 GitHub 的路由坏了，换个出口就好。
+
+### 关于第三方加速镜像——请用前先校验
+
+ghproxy 一类加速站能救急，但要清楚两件事：
+
+1. 它返回的是**别人转发的字节**。这个仓库里的东西会被 Qoder 当成技能**加载执行**（`scripts/*.py`、`wordlists.json` 都参与判定），所以一条被篡改的词条就能让检查结论静默变坏——这类问题不会报错，只会给出错误答案。
+2. 因此：**只用镜像下载，永远不要经由镜像推送**；下载后核对提交号是否与官网一致：
+
+```bash
+git log -1 --format=%H          # 本地
+# 与 https://github.com/huanglihui123456789-web/narrating-work-outcomes/commits/main 顶部那条对比
+```
+
+SHA 不一致就不要用。ZIP 下载同理：解压后核对最新提交的短号。
 
 ## 布局
 
