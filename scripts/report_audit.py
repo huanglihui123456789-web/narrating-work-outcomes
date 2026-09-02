@@ -20,9 +20,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import unicodedata
+
+# 从任何工作目录、以任何方式启动都能找到同目录的 wordpack：
+# 直接运行时 Python 会加 scripts/ 到 sys.path，但被 import 或以路径运行时不会
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import wordpack
 

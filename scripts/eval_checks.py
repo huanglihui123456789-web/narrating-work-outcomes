@@ -181,6 +181,11 @@ def run_case(mode: str, text: str, style: str = "") -> list[str]:
     return [i["type"] for i in issues if i["type"] not in DOC_LEVEL]
 
 
+import os
+# 从任何工作目录、以任何方式启动都能找到同目录的 wordpack：
+# 直接运行时 Python 会加 scripts/ 到 sys.path，但被 import 或以路径运行时不会
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 import wordpack
 
 

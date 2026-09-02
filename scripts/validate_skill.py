@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 """结构校验器：把 create-skill 的 Phase 4 清单变成可执行检查。"""
 import re, os, sys, json, subprocess, tempfile
+import os
+# 从任何工作目录、以任何方式启动都能找到同目录的 wordpack：
+# 直接运行时 Python 会加 scripts/ 到 sys.path，但被 import 或以路径运行时不会
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 import wordpack
 
 wordpack.use_utf8_console()   # Windows 控制台默认 GBK，打印中文断言会抛 UnicodeEncodeError
@@ -47,11 +52,19 @@ chk(all('/' in r or os.path.dirname(r) == '' for r in refs), "文件引用均为
 try:
     import yaml
 except ImportError:
-    chk(False, "环境缺 PyYAML")
-    sys.exit(1)
-d = yaml.safe_load(open(os.path.join(ROOT, '.skill-metadata.yaml'), encoding='utf8'))
-ex = d['examples']
-chk(len(ex) >= 4, f"examples 数量 {len(ex)} >=4（每个主要能力一条）")
+    yaml = None
+
+
+if yaml is None:
+    # 裸环境没有 PyYAML：跳过 metadata 检查并说明原因，其余 130+ 项照常跑。
+    # 曾尝试写迷你 YAML 子集解析器，结果连主流的「- id: 与 title: 同级」都对不上
+    # ——自造解析器比它想解决的问题更不可靠，删掉。
+    print("SKIP  metadata 检查需要 PyYAML，本项跳过（其余检查不受影响；pip install pyyaml 可开启）")
+    ex = []
+else:
+    d = yaml.safe_load(open(os.path.join(ROOT, '.skill-metadata.yaml'), encoding='utf8'))
+    ex = d['examples']
+    chk(len(ex) >= 4, f"examples 数量 {len(ex)} >=4（每个主要能力一条）")
 for e in ex:
     for k in ['id', 'title', 'description', 'prompt']:
         chk(k in e, f"example {e.get('id')} 含字段 {k}")

@@ -80,7 +80,7 @@ Windows  %USERPROFILE%\.qwenworkcn\skills\narrating-work-outcomes\
 macOS/Linux  ~/.qwenworkcn/skills/narrating-work-outcomes/
 ```
 
-要求 Python 3.10+，无第三方依赖，不联网。
+要求 Python 3.10+，不联网。核心功能零依赖；`validate_skill.py` 的 metadata 检查段在有 PyYAML 时启用，没有则跳过该项（其余检查不受影响）。从仓库根目录或任意工作目录运行均可。
 
 ## 布局
 
