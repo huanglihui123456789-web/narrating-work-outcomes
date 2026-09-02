@@ -1,5 +1,8 @@
 # 职场成果叙事引擎（narrating-work-outcomes）
 
+GitHub：https://github.com/huanglihui123456789-web/narrating-work-outcomes
+国内镜像（Gitee）：https://gitee.com/h1549520007/narrating-work-outcomes
+
 把零散、口语、流水账式的工作记录，改写成**领导挑不出毛病**的中文职场文书：周报、双周报、月报、季度/学期/年终述职、绩效自评、转正总结、竞聘稿。
 
 它不替你润色文字，而是**逼你把没说清的事补出来**。
@@ -86,13 +89,25 @@ macOS/Linux  ~/.qwenworkcn/skills/narrating-work-outcomes/
 
 国内网络访问 GitHub 经常是**间歇性**的——同一台机器十几分钟内三条通道表现都不一样（实测：`raw.githubusercontent.com` 完全不通，`github.com` 反复连接重置，而 ZIP 下载和 API 正常）。所以先别怀疑代码。
 
-**最省事：不用 git。** 装这个技能并不需要克隆。浏览器打开
+**首选：走 Gitee 镜像。** 实测匿名可下载（HTTP 200、33 个文件，包内根目录同样是 `narrating-work-outcomes-main`）：
+
+```
+https://gitee.com/h1549520007/narrating-work-outcomes/repository/archive/main
+```
+
+国内直连，不需要登录、不需要代理。想 `git clone` 也一样通：
+
+```
+git clone https://gitee.com/h1549520007/narrating-work-outcomes.git
+```
+
+**次选：GitHub 直接下 ZIP**（只需要能打开网页，不用 git）：
 
 ```
 https://github.com/huanglihui123456789-web/narrating-work-outcomes/archive/refs/heads/main.zip
 ```
 
-下载解压，把里面的 `narrating-work-outcomes-main` 改名成 `narrating-work-outcomes`，放进上面的技能目录即可。这条路只需要能打开网页。
+下载解压，把里面的 `narrating-work-outcomes-main` 改名成 `narrating-work-outcomes`，放进上面的技能目录即可。
 
 **要持续更新再配 SSH over 443**（GitHub 官方逃生通道，绕开常被堵的 22 端口）。在 `~/.ssh/config` 里加：
 
